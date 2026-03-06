@@ -25,14 +25,34 @@ const addProduct = (req, res) => {
 };
 
 
-// Get Products
+// Get All Products
 const getProducts = (req, res) => {
 
     res.json(products);
 
 };
 
+
+// Search Products
+const searchProducts = (req, res) => {
+
+    const query = req.query.q;
+
+    if (!query) {
+        return res.json(products);
+    }
+
+    const results = products.filter(product =>
+        product.name.toLowerCase().includes(query.toLowerCase())
+    );
+
+    res.json(results);
+
+};
+
+
 module.exports = {
     addProduct,
-    getProducts
+    getProducts,
+    searchProducts
 };
