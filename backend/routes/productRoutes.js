@@ -1,11 +1,14 @@
 const express = require("express");
-
 const router = express.Router();
 
-router.get("/products", (req, res) => {
-    res.json({
-        message: "Product list will appear here"
-    });
-});
+const {
+    addProduct,
+    getProducts
+} = require("../controllers/productController");
+
+
+router.post("/products", addProduct);
+router.get("/products", getProducts);
+
 
 module.exports = router;
