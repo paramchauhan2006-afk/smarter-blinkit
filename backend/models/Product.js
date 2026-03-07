@@ -1,13 +1,34 @@
-class Product {
-    constructor(name, price, category, stock, sellerId, barcode) {
-        this.id = Date.now();   // simple unique id
-        this.name = name;
-        this.price = price;
-        this.category = category;
-        this.stock = stock;
-        this.sellerId = sellerId;
-        this.barcode = barcode;
-    }
-}
+const mongoose = require("mongoose");
 
-module.exports = Product;
+const productSchema = new mongoose.Schema({
+
+    name: {
+        type: String,
+        required: true
+    },
+
+    price: {
+        type: Number,
+        required: true
+    },
+
+    category: {
+        type: String
+    },
+
+    stock: {
+        type: Number,
+        default: 0
+    },
+
+    sellerId: {
+        type: String
+    },
+
+    barcode: {
+        type: String
+    }
+
+});
+
+module.exports = mongoose.model("Product", productSchema);

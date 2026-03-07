@@ -9,10 +9,13 @@ const {
     deleteProduct
 } = require("../controllers/productController");
 
-router.post("/products", addProduct);
+const verifyToken = require("../middleware/authMiddleware");
+
+router.post("/products", verifyToken, addProduct);
 router.get("/products", getProducts);
 router.get("/products/search", searchProducts);
-router.put("/products/:id", updateProduct);
-router.delete("/products/:id", deleteProduct);
+
+router.put("/products/:id", verifyToken, updateProduct);
+router.delete("/products/:id", verifyToken, deleteProduct);
 
 module.exports = router;
