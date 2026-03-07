@@ -1,21 +1,30 @@
 const express = require("express");
-
-const connectDB = require("./config/db");
+const mongoose = require("mongoose");
+require("dotenv").config();
 
 const productRoutes = require("./routes/productRoutes");
 const userRoutes = require("./routes/userRoutes");
 
 const app = express();
 
-const PORT = 5000;
-
-connectDB();
-
 app.use(express.json());
 
-app.use("/api", productRoutes);
-app.use("/api", userRoutes);
+const PORT = process.env.PORT || 5000;
 
+// MongoDB Connection
+mongoose.connect(process.env.MONGO_URI)
+.then(() => {
+    console.log("MongoDB Connected");
+})
+.catch((error) => {
+    console.log("MongoDB Connection Failed:", error);
+});
+
+// Routes
+app.use("/api/products", productRoutes);
+app.use("/api/users", userRoutes);
+
+// Root
 app.get("/", (req, res) => {
     res.send("Smarter Blinkit Backend Running");
 });
