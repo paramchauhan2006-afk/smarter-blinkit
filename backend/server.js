@@ -1,14 +1,16 @@
 const express = require("express");
 
-const app = express();
-
 const productRoutes = require("./routes/productRoutes");
+const userRoutes = require("./routes/userRoutes");
+
+const app = express();
 
 const PORT = 5000;
 
 app.use(express.json());
 
 app.use("/api", productRoutes);
+app.use("/api", userRoutes);
 
 app.get("/", (req, res) => {
     res.send("Smarter Blinkit Backend Running");
