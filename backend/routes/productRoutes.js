@@ -2,20 +2,28 @@ const express = require("express");
 const router = express.Router();
 
 const {
-    addProduct,
-    getProducts,
-    searchProducts,
-    updateProduct,
-    deleteProduct
+  addProduct,
+  getProducts,
+  searchProducts,
+  updateProduct,
+  deleteProduct
 } = require("../controllers/productController");
 
 const verifyToken = require("../middleware/authMiddleware");
 
-router.post("/products", verifyToken, addProduct);
-router.get("/products", getProducts);
-router.get("/products/search", searchProducts);
+/* ADD PRODUCT */
+router.post("/", verifyToken, addProduct);
 
-router.put("/products/:id", verifyToken, updateProduct);
-router.delete("/products/:id", verifyToken, deleteProduct);
+/* GET ALL PRODUCTS */
+router.get("/", getProducts);
+
+/* SEARCH PRODUCTS */
+router.get("/search", searchProducts);
+
+/* UPDATE PRODUCT */
+router.put("/:id", verifyToken, updateProduct);
+
+/* DELETE PRODUCT */
+router.delete("/:id", verifyToken, deleteProduct);
 
 module.exports = router;
